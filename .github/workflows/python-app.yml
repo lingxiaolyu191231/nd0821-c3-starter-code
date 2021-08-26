@@ -35,10 +35,14 @@ jobs:
       run: |
         pytest
 
-- name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ AKIAVKKNXHUXJCCFPOPP }}
-        aws-secret-access-key: ${{ 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 }}
-        # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # if you have/need it
-        aws-region:  us-west-1
+name: Configure AWS Credentials
+  uses: aws-actions/configure-aws-credentials@v1
+  with:
+    aws-access-key-id: ${{ AKIAVKKNXHUXJCCFPOPP }}
+    aws-secret-access-key: ${{ 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 }}
+    # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # if you have/need it
+    aws-region:  us-west-1
+  
+steps:
+  - uses: actions/checkout@v2
+  - uses: iterative/setup-dvc@v1
