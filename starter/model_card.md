@@ -1,7 +1,5 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
-
 ## Model Details
 Author: Lingxiao Lyu & Udacity Machine Learning DevOps Nano Degree
 Date: August 27, 2021
@@ -34,5 +32,7 @@ Out-of-scope Uses:
 - fbeta: the weighted harmonic mean of precision and recall; in this model, weight on recall = 0.7 and weight on precision = 0.3
 
 ## Ethical Considerations
-Data is publicly available Census Bureau data. The model can be used to disclose whether a person's salary is associated with his or her 
+Data is publicly available Census Bureau data. The model can be used to disclose to which degree a person's salary is associated with his or her age, workclass, education, etc. but not directly connected due to the limit number of features presented in the dataset. The model results should be assessed with other data and models to address a more considerate conclusion.
+
 ## Caveats and Recommendations
+The model results suggest that there is a weak correlation between feature presented in the data, but due to the limit number of samples, I would recommend a much larger dataset ideally with proportions similar to the U.S. population proportions. In addition, I would recommend to include more features not currently presented in the dataset but with promising impact on salary. Last, more types of models and a longer time in fine-tuning would likely bring a higher classification accuracy. 
