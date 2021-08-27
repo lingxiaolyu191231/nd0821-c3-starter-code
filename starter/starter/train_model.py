@@ -2,6 +2,7 @@
 import sys
 sys.path.insert(1, './ml')
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 import pickle
 import pandas as pd
 from data import process_data
@@ -12,7 +13,7 @@ from model import train_model, compute_model_metrics, inference
 data = pd.read_csv("../data/clean_data.csv")
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
-train, test = train_test_split(data, test_size=0.20)
+train, test = train_test_split(data, test_size=0.20, random_state=42)
 
 cat_features = [
     "workclass",

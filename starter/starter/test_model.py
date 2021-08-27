@@ -39,8 +39,15 @@ def test_train_model(data):
     filepath = "../model/gbclassifier.pkl"
     assert os.path.exists(filepath)
 
-def test_inference(data):
-    train, test = train_test_split(data, test_size=0.20)
+@pytest.fixture
+def train_test_data(data):
+    """Fix train-test data"""
+    train, test = train_test_split(data, test_size=0.20, random_state=42)
+    return (train, test)
+
+
+def test_inference(train_test_data):
+    train, test = train_test_data
     cat_features = [
     "workclass",
     "education",
@@ -69,8 +76,9 @@ def test_inference(data):
     assert len(y_test_pred) > 0
 
 
-def test_compute_model_metrics(data):
-    train, test = train_test_split(data, test_size=0.20)
+def test_compute_model_metrics(train_test_data):
+    train, test = train_test_data
+
     cat_features = [
     "workclass",
     "education",
@@ -81,6 +89,7 @@ def test_compute_model_metrics(data):
     "sex",
     "native-country",
 ]
+
     X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )

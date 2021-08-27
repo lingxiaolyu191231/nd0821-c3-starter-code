@@ -1,5 +1,6 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import GridSearchCV
 import pickle
 
 
@@ -19,14 +20,17 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    gbc = GradientBoostingClassifier(n_estimators=100, learning_rate=0.01,
-                                     max_depth=2, max_features = "auto",
-                                     random_state=42)
-    gbc.fit(X_train, y_train)
+    gbc = GradientBoostingClassifier(random_state=42)
+    parameters = {"n_estimators":(5, 10), 
+                  "learning_rate": (0.1, 0.01, 0.001),
+                  "max_depth": [2,3,4],
+                  "max_features": ("auto", "log2")}
+    clf = GridSearchCV(gbc, parameters)
+    clf.fit(X_train, y_train)
     with open("../model/gbclassifier.pkl", 'wb') as file:  
-        pickle.dump(gbc, file)
+        pickle.dump(clf.best_estimator_, file)
 
-    return gbc
+    return clf.best_estimator_
 
 
 
