@@ -1,25 +1,24 @@
 import json
-import pickle
 import requests
-from sklearn.base import BaseEstimator
-from sklearn.ensemble import GradientBoostingClassifier
 
-class MyEstimator(BaseEstimator):
-     def __init__(self, estimator=None, my_extra_param="random"):
-         self.estimator = estimator
-         self.my_extra_param = my_extra_param
+request_data = {
+    "age": 30,
+    "workclass": "Never-married",
+    "fnlgt": 77516,
+    "education": "Bachelors",
+    "education-num": 13,
+    "marital-status": "Divorced",
+    "occupation": "Adm-clerical",
+    "relationship": "Husband",
+    "race": "White",
+    "sex": "Male",
+    "capital-gain": 1000,
+    "capital-loss": 0,
+    "hours-per-week": 20,
+    "native-country": "United-States",
+    "salary": 10000
+}
 
-load_model = pickle.load(open("./model/gbclassifier.pkl", "rb"))
-my_estimator = MyEstimator(estimator=GradientBoostingClassifier())
-param_dict = dict()
-for param, value in my_estimator.get_params(deep=True).items():
-    param_dict[param] = str(value)
-
-update_param_dict = dict()
-for key in param_dict.keys():
-    if param_dict[key] != None:
-        update_param_dict[key] = str(param_dict[key])
-
-r = requests.post("http://127.0.0.1:8000/model", data=json.dumps(update_param_dict))
+r = requests.post("http://127.0.0.1:8000/model", data=json.dumps(request_data))
 
 print(r.json())
