@@ -9,7 +9,7 @@ sys.path.insert(1, './starter/ml')
 from data import process_data
 import pickle
 from fastapi import FastAPI, Body
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Dict, Optional
 
 
@@ -18,25 +18,25 @@ class Input(BaseModel):
     workclass: str
     fnlgt: int
     education: str
-    education-num: int
-    marital-status: str
+    education_num: int = Field(None, alias = "education-num")
+    marital_status: str = Field(None, alias = "marital-status")
     occupation: str
     relationship: str
     race: str
     sex: str
-    capital-gain: int
-    capital-loss: int
-    hours-per-week: int
-    native-country: str
+    capital_gain: int = Field(None, alias = "capital-gain")
+    capital_loss: int = Field(None, alias = "capital-loss")
+    hours_per_week: int = Field(None, alias = "hours-per-week")
+    native_country: str = Field(None, alias = "native-country")
     salary: Optional[int] = None
     
 app = FastAPI()
 
-@app.get("/root")
+@app.get("/root/")
 async def welcome():
     return "Welcome to FASTAPI!"
 
-@app.post("/model")
+@app.post("/model/")
 async def predict(
             input: Input = Body(None,
                 examples = {

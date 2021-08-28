@@ -19,6 +19,6 @@ request_data = {
     "salary": 10000
 }
 
-r = requests.post("http://127.0.0.1:8000/model", data=json.dumps(request_data))
+r = requests.post("http://127.0.0.1:8000/model/", data=json.dumps(request_data))
 
 print(r.json())
