@@ -18,32 +18,22 @@ class Input(BaseModel):
     workclass: str
     fnlgt: int
     education: str
-    education_num: int = Field(None, alias = "education-num")
-    marital_status: str = Field(None, alias = "marital-status")
+    education_num: int = Field(..., alias = "education-num")
+    marital_status: str = Field(..., alias = "marital-status")
     occupation: str
     relationship: str
     race: str
     sex: str
-    capital_gain: int = Field(None, alias = "capital-gain")
-    capital_loss: int = Field(None, alias = "capital-loss")
-    hours_per_week: int = Field(None, alias = "hours-per-week")
-    native_country: str = Field(None, alias = "native-country")
-    salary: Optional[int] = None
-    
-app = FastAPI()
+    capital_gain: int = Field(..., alias = "capital-gain")
+    capital_loss: int = Field(..., alias = "capital-loss")
+    hours_per_week: int = Field(..., alias = "hours-per-week")
+    native_country: str = Field(..., alias = "native-country")
+    salary: Optional[int]
 
-@app.get("/root/")
-async def welcome():
-    return "Welcome to FASTAPI!"
-
-@app.post("/model/")
-async def predict(
-            input: Input = Body(None,
-                examples = {
-                    "standard": {
-                        "summary": "A standard input example",
-                        "description": "an input example",
-                        "value": {
+    class Config:
+        schema_extra = {
+            'examples': [
+                {
                             "age": 24,
                             "workclass": "Never-married",
                             "fnlgt": 77516,
@@ -60,11 +50,18 @@ async def predict(
                             "native-country": "United-States",
                             "salary": 1000
                                   }
-                                }
-                            
-                                }
-                                )
-                            ):
+            ]
+        }
+
+    
+app = FastAPI()
+
+@app.get("/root/")
+async def welcome():
+    return "Welcome to FASTAPI!"
+
+@app.post("/model/")
+async def predict(input: Input):
     load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
     
     # load encoder
