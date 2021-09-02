@@ -65,12 +65,14 @@ async def welcome():
 
 @app.post("/prediction/", response_model=Output, status_code=200)
 async def predict(input: Input):
-    
+    print()
     # load predict_data
     request_dict = input.dict()
+    new_request_dict = dict()
     for key in request_dict.keys():
         key = key.replace('_','-')
         new_request_dict[key] = request_dict[key]
+        
     new_request_data = pd.DataFrame(new_request_dict)
     print(new_request_data)
 
@@ -84,7 +86,7 @@ async def predict(input: Input):
                 lb=lb)
     
     y_request_pred = load_gbc.predict(X_request)
-    print(y_request_pred)
+    print()
     return {"prediction": y_request_pred}
     
     
