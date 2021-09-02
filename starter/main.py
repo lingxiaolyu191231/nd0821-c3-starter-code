@@ -38,47 +38,40 @@ class Output(BaseModel):
 
 app = FastAPI()
 
-# Load gradiant boosting classifier
-load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
-
-# load encoder
-encoder = pickle.load(open("./model/encoder.pkl", "rb"))
-
-# load lb
-lb = pickle.load(open("./model/lb.pkl", "rb"))
-
-cat_features = [
-    "workclass",
-    "education",
-    "marital_status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native_country",
-]
-
-
 @app.get("/")
 async def welcome():
     return "Welcome! You are at the Homepage of FastAPI"
 
 @app.post("/prediction/", response_model=Output, status_code=200)
 async def predict(input: Input):
+
     print()
+    # Load gradiant boosting classifier
+    load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
+
+    # load encoder
+    encoder = pickle.load(open("./model/encoder.pkl", "rb"))
+
+    # load lb
+    lb = pickle.load(open("./model/lb.pkl", "rb"))
+
+    cat_features = [
+        "workclass",
+        "education",
+        "marital_status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native_country",
+    ]
+
     # load predict_data
-    request_dict = input.dict()
-    new_request_dict = dict()
-    for key in request_dict.keys():
-        key = key.replace('_','-')
-        new_request_dict[key] = request_dict[key]
-        
-    new_request_data = pd.DataFrame(new_request_dict)
-    print(new_request_data)
+    request_dict = input.dict(by_alias=True)
+    request_data = pd.DataFrame(request_dict, index=[0])
 
-
-    X_request, y_request, _, _ = process_data(
-                new_request_data,
+    X_request, _, _, _ = process_data(
+                request_data,
                 categorical_features=cat_features,
                 label="salary",
                 training=False,
@@ -86,7 +79,7 @@ async def predict(input: Input):
                 lb=lb)
     
     y_request_pred = load_gbc.predict(X_request)
-    print()
+    print(y_request_pred)
     return {"prediction": y_request_pred}
     
     
