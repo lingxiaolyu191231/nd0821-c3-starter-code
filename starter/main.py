@@ -68,8 +68,11 @@ async def predict(input: Input):
     
     # load predict_data
     request_dict = input.dict()
-    request_data = pd.DataFrame(request_dict,index=[0])
-    print(request_data)
+    for key in request_dict.keys():
+        key = key.replace('_','-')
+        new_request_dict[key] = request_dict[key]
+    new_request_data = pd.DataFrame(request_dict,index=[0])
+    print(new_request_data)
 
 
     X_request, y_request, _, _ = process_data(
