@@ -33,7 +33,7 @@ class Input(BaseModel):
     salary: Optional[int]
 
 
-class Output(Input):
+class Output(BaseModel):
     predict: float
 
 app = FastAPI()
@@ -71,12 +71,12 @@ async def predict(input: Input):
     for key in request_dict.keys():
         key = key.replace('_','-')
         new_request_dict[key] = request_dict[key]
-    new_request_data = pd.DataFrame(request_dict,index=[0])
+    new_request_data = pd.DataFrame(new_request_dict)
     print(new_request_data)
 
 
     X_request, y_request, _, _ = process_data(
-                request_data,
+                new_request_data,
                 categorical_features=cat_features,
                 label="salary",
                 training=False,
@@ -84,7 +84,7 @@ async def predict(input: Input):
                 lb=lb)
     
     y_request_pred = load_gbc.predict(X_request)
-    
+    print(y_request_pred)
     return {"prediction": y_request_pred}
     
     
