@@ -4,6 +4,7 @@ Date: August 27, 2021
 
 This module is used to implement ML pipeline in FastAPI
 """
+import os
 import sys
 import pandas as pd
 sys.path.insert(1, './starter/ml')
@@ -14,6 +15,11 @@ from pydantic import BaseModel, Field
 from typing import Dict, Optional
 from sklearn.model_selection import train_test_split
 
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 class Input(BaseModel):
     age: int = Field(..., example=25)
