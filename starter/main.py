@@ -45,7 +45,6 @@ async def welcome():
 @app.post("/prediction/", response_model=Output, status_code=200)
 async def predict(input: Input):
 
-    print()
     # Load gradiant boosting classifier
     load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
 
@@ -58,18 +57,18 @@ async def predict(input: Input):
     cat_features = [
         "workclass",
         "education",
-        "marital_status",
+        "marital-status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native_country",
+        "native-country",
     ]
 
     # load predict_data
     request_dict = input.dict(by_alias=True)
     request_data = pd.DataFrame(request_dict, index=[0])
-
+    
     X_request, _, _, _ = process_data(
                 request_data,
                 categorical_features=cat_features,
@@ -80,7 +79,7 @@ async def predict(input: Input):
     
     y_request_pred = load_gbc.predict(X_request)
     print(y_request_pred)
-    return {"prediction": y_request_pred}
+    return {"predict": y_request_pred[0]}
     
     
 
