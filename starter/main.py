@@ -8,8 +8,8 @@ import os
 import sys
 import pandas as pd
 sys.path.insert(1, '/.../starter/starter/ml')
-import data
-from data import process_data
+import starter.data
+from starter.data import process_data
 import pickle
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
