@@ -7,7 +7,8 @@ This module is used to implement ML pipeline in FastAPI
 import os
 import sys
 import pandas as pd
-sys.path.insert(1, './starter/ml')
+sys.path.insert(1, '/starter/ml')
+import data
 from data import process_data
 import pickle
 from fastapi import FastAPI, Body
