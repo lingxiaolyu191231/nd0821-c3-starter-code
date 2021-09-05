@@ -13,13 +13,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python ${{matrix.python-version}}
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: $ {{ matrix.python-version}}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -31,7 +34,6 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -39,15 +41,16 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # if you have/need it
         aws-region:  us-west-1
-    
+    - uses: iterative/dvc-action@v1
+      with:
+        github_token: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      env:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region:  us-west-1
     - name: Version Data
       run: |
         dvc pull
-        
     - name: Test with pytest
       run: |
         pytest
-    
-    steps:
-    - uses: actions/checkout@v2
-    - uses: iterative/setup-dvc@v1
