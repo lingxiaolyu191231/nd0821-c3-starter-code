@@ -1,6 +1,13 @@
 import requests
 import json
+from flask import Flask
 
+app = Flask(__name__)
+@app.route("/")
+
+def index():
+    return "Welcome to Heroku Ling's Udacity Heroku Project!"
+    
 data = {
     "age": 30,
     "workclass": "Never-married",
@@ -19,6 +26,6 @@ data = {
     "salary": 10000
 }
 
-response = requests.post("https://udacity-fastapi-ling09032021.herokuapp.com/", auth=('usr', 'pass'), data=json.dumps(data))
+response = requests.post("https://udacity-fastapi-project.herokuapp.com/prediction/", auth=('usr', 'pass'), data=json.dumps(data))
 print(response.status_code)
 print(response.json())
