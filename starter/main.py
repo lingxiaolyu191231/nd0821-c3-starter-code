@@ -8,6 +8,7 @@ import os
 import sys
 import pandas as pd
 sys.path.insert(1, './starter/ml')
+sys.path.append('./starter/starter/ml')
 from data import process_data
 import pickle
 from fastapi import FastAPI, Body
