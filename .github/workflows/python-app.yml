@@ -38,7 +38,8 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # if you have/need it
         aws-region:  us-west-1
-    - uses: iterative/dvc-action@v1
+    - name: Setup DVC
+      uses: iterative/setup-dvc@v1
       with:
         github_token: ${{ secrets.AWS_ACCESS_KEY_ID }}
       env:
