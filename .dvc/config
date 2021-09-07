@@ -6,11 +6,11 @@
     s3 = s3cache
 ['remote "s3_remote"']
     url = s3://udacity-fastapi/data
-    access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
-    secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    access_key_id = AKIAVKKNXHUXC7MPV5WG
+    secret_access_key = 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
     use_ssl = false
 ['remote "s3cache"']
     url = s3://udacity-fastapi/data
-    access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
-    secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    access_key_id = AKIAVKKNXHUXC7MPV5WG
+    secret_access_key = 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
     use_ssl = false
