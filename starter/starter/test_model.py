@@ -11,7 +11,7 @@ from model import inference,train_model, compute_model_metrics
 @pytest.fixture
 def data():
     """Load data"""
-    data = pd.read_csv("../data/clean_data.csv")
+    data = pd.read_csv("../../../starter/data/clean_data.csv")
     return data
 
 def test_data_shape(data):
@@ -36,7 +36,7 @@ def test_train_model(data):
     train, categorical_features=cat_features, label="salary", training=True
 )
     model = train_model(X_train, y_train)
-    filepath = "../model/gbclassifier.pkl"
+    filepath = "../../../starter/model/gbclassifier.pkl"
     assert os.path.exists(filepath)
 
 @pytest.fixture
@@ -64,7 +64,7 @@ def test_inference(train_test_data):
     X_test, y_test, _ , _ = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
-    model = "../model/gbclassifier.pkl"
+    model = "../../../starter/model/gbclassifier.pkl"
     gbc = pickle.load(open(model, 'rb'))
 
     y_train_pred = inference(gbc, X_train)
@@ -96,7 +96,7 @@ def test_compute_model_metrics(train_test_data):
     X_test, y_test, _ , _ = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
-    model = "../model/gbclassifier.pkl"
+    model = "../../../starter/model/gbclassifier.pkl"
     with open(model, 'rb') as file:  
         gbc = pickle.load(file)
 
