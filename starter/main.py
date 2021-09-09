@@ -6,6 +6,7 @@ This module is used to implement ML pipeline in FastAPI
 """
 import os
 import sys
+import subprocess
 import pandas as pd
 sys.path.insert(1, './starter/ml')
 sys.path.append('./starter/starter/ml')
