@@ -24,7 +24,8 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     print(dvc_output.stderr)
     if dvc_output.returncode != 0:
         print("dvc pull failed")
-    os.system("rm -r .dvc .apt/usr/lib/dvc")
+    else:
+        os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 class Input(BaseModel):
     age: int = Field(..., example=25)
