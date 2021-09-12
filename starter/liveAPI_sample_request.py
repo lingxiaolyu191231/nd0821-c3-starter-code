@@ -20,7 +20,6 @@ data = {
 }
 
 response = requests.post("http://udacity-fastapi-project.herokuapp.com/prediction/", data=json.dumps(data))
-#if response.status_code == 200:
-print(response)
-print(type(response))
-print(dir(response))
+if response.status_code == 200:
+    print(response)
+    print(response.json())
