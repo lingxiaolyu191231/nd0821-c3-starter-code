@@ -56,6 +56,7 @@ async def welcome():
 
 @app.post("/prediction/", response_model=Output, status_code=200)
 async def predict(input: Input):
+    print(os.getcwd())
     print(os.listdir("../starter/model/"))
     # Load gradiant boosting classifier
     load_gbc = pickle.load(open("../starter/model/gbclassifier.pkl", "rb"))
