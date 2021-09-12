@@ -60,13 +60,13 @@ async def predict(input: Input):
     print(os.listdir(os.path.join(os.getcwd(),'starter/model')))
     #print(os.listdir("../starter/model/"))
     # Load gradiant boosting classifier
-    load_gbc = pickle.load(open("../starter/model/gbclassifier.pkl", "rb"))
+    load_gbc = pickle.load(open("./starter/model/gbclassifier.pkl", "rb"))
 
     # load encoder
-    encoder = pickle.load(open("../starter/starter/model/encoder.pkl", "rb"))
+    encoder = pickle.load(open("./starter/starter/model/encoder.pkl", "rb"))
 
     # load lb
-    lb = pickle.load(open("../starter/starter/model/lb.pkl", "rb"))
+    lb = pickle.load(open("./starter/starter/model/lb.pkl", "rb"))
 
     cat_features = [
         "workclass",
