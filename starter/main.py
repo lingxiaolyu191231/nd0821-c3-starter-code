@@ -56,17 +56,26 @@ async def welcome():
 
 @app.post("/prediction/", response_model=Output, status_code=200)
 async def predict(input: Input):
-    print(os.getcwd())
-    print(os.listdir(os.path.join(os.getcwd(),'starter/model')))
+
     #print(os.listdir("../starter/model/"))
     # Load gradiant boosting classifier
-    load_gbc = pickle.load(open("./starter/model/gbclassifier.pkl", "rb"))
+    print(os.getcwd())
+    try:
+        load_gbc = pickle.load(open("./starter/model/gbclassifier.pkl", "rb"))
+    except FileNotFoundError:
+        load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
 
     # load encoder
-    encoder = pickle.load(open("./starter/model/encoder.pkl", "rb"))
+    try:
+        encoder = pickle.load(open("./starter/model/encoder.pkl", "rb"))
+    except FileNotFoundError:
+        encoder = pickle.load(open("./model/encoder.pkl", "rb"))
 
     # load lb
-    lb = pickle.load(open("./starter/model/lb.pkl", "rb"))
+    try:
+        lb = pickle.load(open("./starter/model/lb.pkl", "rb"))
+    except FileNotFoundError:
+        lb = pickle.load(open("./model/lb.pkl", "rb"))
 
     cat_features = [
         "workclass",
