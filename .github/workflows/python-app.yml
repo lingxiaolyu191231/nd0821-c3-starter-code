@@ -47,3 +47,12 @@ jobs:
     - name: Version Data
       run: |
         dvc pull
+    - name: Run tests
+      run: |
+        pytest
+    - name: Run flake8
+      uses: suo/flake8-github-action@releases/v1
+      with:
+          checkName: 'flake8_py3'
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
