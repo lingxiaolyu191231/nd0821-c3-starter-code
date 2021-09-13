@@ -8,11 +8,12 @@ from sklearn.model_selection import train_test_split
 import pickle
 from model import inference,train_model, compute_model_metrics
 
+print(os.getcwd())
+
 @pytest.fixture
 def data():
     """Load data"""
-    print(os.getcwd())
-    data = pd.read_csv("../starter/data/clean_data.csv")
+    data = pd.read_csv("../data/clean_data.csv")
     return data
 
 def test_data_shape(data):
@@ -36,8 +37,9 @@ def test_train_model(data):
     X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
-    model = train_model(X_train, y_train)
-    filepath = "../model/gbclassifier.pkl"
+    
+    filepath = "../model/gbclassifier_test.pkl"
+    model = train_model(X_train, y_train, filepath=filepath)
     assert os.path.exists(filepath)
 
 @pytest.fixture

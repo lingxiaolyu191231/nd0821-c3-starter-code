@@ -5,7 +5,7 @@ import pickle
 
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train):
+def train_model(X_train, y_train, filepath = "../model/gbclassifier.pkl"):
     """
     Trains a machine learning model and returns it.
 
@@ -27,7 +27,7 @@ def train_model(X_train, y_train):
                   "max_features": ("auto", "log2")}
     clf = GridSearchCV(gbc, parameters)
     clf.fit(X_train, y_train)
-    with open("../model/gbclassifier.pkl", 'wb') as file:  
+    with open(filepath, 'wb') as file:
         pickle.dump(clf.best_estimator_, file)
 
     return clf.best_estimator_
