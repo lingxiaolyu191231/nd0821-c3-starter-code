@@ -1,28 +1,65 @@
 import os
 import sys
+import git
+import pickle
+from pathlib import Path
 sys.path.insert(1, './ml')
 import pytest
 import pandas as pd 
 from data import process_data
 from sklearn.model_selection import train_test_split
-import pickle
 from model import inference,train_model, compute_model_metrics
 
-print(os.getcwd())
-
 @pytest.fixture
-def data():
+def root(path = os.getcwd()):
+    git_repo = git.Repo(path, search_parent_directories=True)
+    git_root = git_repo.git.rev_parse("--show-toplevel")
+    print(git_root)
+    
+    return git_root
+        
+@pytest.fixture
+def alldata(root):
     """Load data"""
-    data = pd.read_csv("../data/clean_data.csv")
-    return data
+    try:
+        data = pd.read_csv(os.path.join(root,'starter/data/clean_data.csv'))
+    except FileNotFoundError:
+        data = pd.read_csv('../data/clean_data.csv')
+    
+    try:
+        model = os.path.join(root,"starter/model/gbclassifier.pkl")
+    except FileNotFoundError:
+        model = "../model/gbclassifier.pkl"
+    with open(model, "rb") as f:
+        model = pickle.load(f)
+        
+    try:
+        encoder = os.path.join(root,"starter/model/encoder.pkl")
+    except FileNotFoundError:
+        encoder = "../model/encoder.pkl"
+    with open(encoder, "rb") as f:
+        encoder = pickle.load(f)
+        
+    try:
+        lb = os.path.join(root, "starter/model/lb.pkl")
+    except FileNotFoundError:
+        lb = "../model/lb.pkl"
+    with open(lb, "rb") as f:
+        lb = pickle.load(f)
+    
+    return data, model, encoder, lb
 
-def test_data_shape(data):
+def test_data_shape(alldata):
     """Test whether enough records are passed and number of columns is as expected"""
+    data, model, encoder, lb = alldata
+    
     assert data.shape[0]>30000
     assert data.shape[1]==15
 
-def test_train_model(data):
+def test_train_model(alldata):
     """Test whether model is built and file exists"""
+    data, model, encoder, lb = alldata
+    
     train, test = train_test_split(data, test_size=0.20)
     cat_features = [
     "workclass",
@@ -37,20 +74,29 @@ def test_train_model(data):
     X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
-    
-    filepath = "../model/gbclassifier_test.pkl"
+    try:
+        filepath = os.path.join(root,"starter/model/gbclassifier_test.pkl")
+    except:
+        filepath = "../model/gbclassifier_test.pkl"
+        
     model = train_model(X_train, y_train, filepath=filepath)
     assert os.path.exists(filepath)
+    
+    return X_train, y_train, model, encoder, lb
 
 @pytest.fixture
-def train_test_data(data):
+def train_test_data(alldata):
     """Fix train-test data"""
+    data, model, encoder, lb = alldata
+    
     train, test = train_test_split(data, test_size=0.20, random_state=42)
     return (train, test)
 
+def test_inference(train_test_data, alldata):
 
-def test_inference(train_test_data):
+    _, model, encoder, lb = alldata
     train, test = train_test_data
+    
     cat_features = [
     "workclass",
     "education",
@@ -61,27 +107,27 @@ def test_inference(train_test_data):
     "sex",
     "native-country",
 ]
-    X_train, y_train, encoder, lb = process_data(
-    train, categorical_features=cat_features, label="salary", training=True
+    X_train, y_train, _ , _ = process_data(
+    train, categorical_features=cat_features, label="salary", training=True, encoder=encoder, lb=lb
 )
     X_test, y_test, _ , _ = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
-    model = "../model/gbclassifier.pkl"
-    gbc = pickle.load(open(model, 'rb'))
-
-    y_train_pred = inference(gbc, X_train)
+    
+    y_train_pred = inference(model, X_train)
     assert len(y_train_pred) == X_train.shape[0]
     assert len(y_train_pred) > 0
     
-    y_test_pred = inference(gbc, X_test)
+    y_test_pred = inference(model, X_test)
     assert len(y_test_pred) == X_test.shape[0]
     assert len(y_test_pred) > 0
 
 
-def test_compute_model_metrics(train_test_data):
-    train, test = train_test_data
+def test_compute_model_metrics(alldata, train_test_data):
 
+    _, model, encoder, lb = alldata
+    train, test = train_test_data
+    
     cat_features = [
     "workclass",
     "education",
@@ -92,20 +138,18 @@ def test_compute_model_metrics(train_test_data):
     "sex",
     "native-country",
 ]
-
-    X_train, y_train, encoder, lb = process_data(
-    train, categorical_features=cat_features, label="salary", training=True
+    
+    X_train, y_train, _ , _ = process_data(
+    train, categorical_features=cat_features, label="salary", training=True, encoder=encoder, lb=lb
 )
+    
     X_test, y_test, _ , _ = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
-    model = "../model/gbclassifier.pkl"
-    with open(model, 'rb') as file:  
-        gbc = pickle.load(file)
 
-    y_train_pred = inference(gbc, X_train)   
-    y_test_pred = inference(gbc, X_test)
-
+    y_train_pred = inference(model, X_train)
+    y_test_pred = inference(model, X_test)
+    
     precision_train, recall_train, fbeta_train = compute_model_metrics(y_train, y_train_pred)
     precision_test, recall_test, fbeta_test = compute_model_metrics(y_test, y_test_pred)
 
