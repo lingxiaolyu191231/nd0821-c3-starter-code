@@ -100,7 +100,9 @@ async def predict(input: Input):
 
     # load predict_data
     request_dict = input.dict(by_alias=True)
+    print(request_dict)
     request_data = pd.DataFrame(request_dict, index=[0])
+    print(request_data)
     
     X_request, _, _, _ = process_data(
                 request_data,
