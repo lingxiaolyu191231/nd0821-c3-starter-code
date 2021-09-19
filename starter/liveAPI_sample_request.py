@@ -16,10 +16,16 @@ data = {
     "capital-loss": 0,
     "hours-per-week": 20,
     "native-country": "United-States",
-    "salary": 10000
+    "salary": ">50K"
 }
 
 response = requests.post("http://udacity-fastapi-project.herokuapp.com/prediction/", data=json.dumps(data))
+print(response)
 if response.status_code == 200:
     print(response)
-    print(response.json())
+    if response.json()['predict'] == 0:
+        print('predicted salary: <=50K')
+    else:
+        print('predicted salary: >50K')
+else:
+    print('prediction process failed!')

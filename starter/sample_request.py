@@ -16,9 +16,12 @@ request_data = {
     "capital-loss": 0,
     "hours-per-week": 20,
     "native-country": "United-States",
-    "salary": "<=50"
+    "salary": "<=50K"
 }
 
 r = requests.post("http://127.0.0.1:8000/prediction/", data = json.dumps(request_data))
 print(r)
-print(r.json())
+if r.json()['predict'] == 0:
+    print('predicted salary: <=50K')
+else:
+    print('predicted salary: >50K')
