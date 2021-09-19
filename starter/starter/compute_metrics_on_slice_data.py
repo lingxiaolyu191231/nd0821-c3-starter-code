@@ -35,7 +35,9 @@ def compute_metrics_on_data_slice(categorical_feature,
     X_slice, y_slice, _, _ = process_data(data, 
                                     categorical_features=cat_features,
                                     label = 'salary',
-                                    training=True
+                                    training=False,
+                                    encoder=encoder,
+                                    lb=lb
     )
     preds = inference(model, X_slice)
     precision, recall, fbeta = compute_model_metrics(y_slice, preds)
