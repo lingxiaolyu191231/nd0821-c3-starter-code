@@ -21,6 +21,7 @@ data = {
 
 response = requests.post("http://udacity-fastapi-project.herokuapp.com/prediction/", data=json.dumps(data))
 print(response)
+
 if response.status_code == 200:
     print(response)
     if response.json()['predict'] == 0:
