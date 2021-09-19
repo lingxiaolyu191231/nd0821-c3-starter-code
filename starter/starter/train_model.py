@@ -43,6 +43,8 @@ X_test, y_test, encoder, lb = process_data(
     lb=lb
 )
 
+print(y_test[0])
+
 # Train and save a model.
 classifier = train_model(X_train, y_train)
 print(f"Train data: \nprediction metrics: ")
