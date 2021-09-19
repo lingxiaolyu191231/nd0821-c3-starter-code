@@ -52,11 +52,11 @@ class Input(BaseModel):
     capital_loss: int = Field(..., alias = "capital-loss", example = 0)
     hours_per_week: int = Field(..., alias = "hours-per-week", example = 40)
     native_country: str = Field(..., alias = "native-country", example = "United-States")
-    salary: Optional[str]
+    salary: Optional[int]
 
 
 class Output(BaseModel):
-    predict: str
+    predict: int
 
 app = FastAPI()
 

@@ -27,7 +27,7 @@ def test_get_prediont_one():
     "capital-loss": 0,
     "hours-per-week": 20,
     "native-country": "United-States",
-    "salary": 10000
+    "salary": ">50K"
 }
 
     r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
@@ -52,7 +52,7 @@ def test_get_prediont_two():
     "capital-loss": 0,
     "hours-per-week": 40,
     "native-country": "Poland",
-    "salary": 0
+    "salary": "<=50K"
 }
     r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
@@ -76,7 +76,7 @@ def test_miss_race_feature():
     "capital-loss": 0,
     "hours-per-week": 20,
     "native-country": "United-States",
-    "salary": 10000
+    "salary": ">50K"
 }
     r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
@@ -99,7 +99,7 @@ def test_wrong_feature_type():
     "capital-loss": 0,
     "hours-per-week": 20,
     "native-country": "United-States",
-    "salary": 10000
+    "salary": "<=50K"
 }
     r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
