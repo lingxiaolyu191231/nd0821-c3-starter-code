@@ -1,0 +1,7 @@
+metrics on slice data
+categorical feature: workclass
+categorical_feature_value: Private
+
+precision: 0.8822203437588053
+recall: 0.3994131904579666
+fbeta: 0.6312747712821595
