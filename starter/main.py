@@ -60,6 +60,7 @@ async def welcome():
     return "Welcome! You are at the Homepage of FastAPI"
 
 @app.post("/prediction/", response_model=Output, status_code=200)
+
 async def predict(input: Input):
 
     #print(os.listdir("../starter/model/"))
