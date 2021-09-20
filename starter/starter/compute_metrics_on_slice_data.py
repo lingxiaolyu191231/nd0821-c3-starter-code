@@ -57,24 +57,26 @@ def compute_metrics_on_data_slice(categorical_feature,
         
     with open('../screenshots/slice_output.txt', 'w') as f:
         f.write(f'metrics on slice data\ncategorical feature: {categorical_feature}\n')
+        f.write('\n')
         for i in range(n):
-            f.write(f'categorical_feature_value: {feature_value_list[n]}\n')
+            f.write(f'categorical_feature_value: {feature_value_list[i]}')
             f.write('\n')
             f.write('precision: ')
-            f.write(str(precision_value[n]))
+            f.write(str(precision_value[i]))
             f.write('\n')
             f.write('recall: ')
-            f.write(str(recall_value[n]))
+            f.write(str(recall_value[i]))
             f.write('\n')
             f.write('fbeta: ')
-            f.write(str(fbeta_value[n]))
+            f.write(str(fbeta_value[i]))
+            f.write('\n')
+            f.write('\n')
         
     f.close()
 
 def main():
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 2:
         categorical_feature = sys.argv[1]
-        categorical_feature_value = sys.argv[2]
 
         compute_metrics_on_data_slice(categorical_feature,
                                   data=data,
@@ -83,7 +85,7 @@ def main():
                                   lb = lb
                                   )
     else:
-        print("format is incorrect. \nformat example: python .py education Master")
+        print("format is incorrect. \nformat example: python .py education")
 
 if __name__ =='__main__':
     main()

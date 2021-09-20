@@ -1,7 +1,83 @@
 metrics on slice data
-categorical feature: workclass
-categorical_feature_value: Private
+categorical feature: education
 
-precision: 0.8822203437588053
-recall: 0.3994131904579666
-fbeta: 0.6312747712821595
+categorical_feature_value:  Bachelors
+precision: 0.8685483870967742
+recall: 0.48491670418730304
+fbeta: 0.6892311524767104
+
+categorical_feature_value:  HS-grad
+precision: 0.9766536964980544
+recall: 0.14994026284348866
+fbeta: 0.34716781464084806
+
+categorical_feature_value:  11th
+precision: 1.0
+recall: 0.2833333333333333
+fbeta: 0.5459051724137931
+
+categorical_feature_value:  Masters
+precision: 0.8299681190223167
+recall: 0.8143899895724713
+fbeta: 0.8247797520749021
+
+categorical_feature_value:  9th
+precision: 1.0
+recall: 0.1111111111111111
+fbeta: 0.2754158964879852
+
+categorical_feature_value:  Some-college
+precision: 0.9760956175298805
+recall: 0.17676767676767677
+fbeta: 0.39246780054615443
+
+categorical_feature_value:  Assoc-acdm
+precision: 0.9420289855072463
+recall: 0.24528301886792453
+fbeta: 0.48705054060849895
+
+categorical_feature_value:  Assoc-voc
+precision: 0.9529411764705882
+recall: 0.22437673130193905
+fbeta: 0.4608423383863455
+
+categorical_feature_value:  7th-8th
+precision: 0.8333333333333334
+recall: 0.125
+fbeta: 0.29101562500000006
+
+categorical_feature_value:  Doctorate
+precision: 0.8731884057971014
+recall: 0.7875816993464052
+fbeta: 0.8430530121613374
+
+categorical_feature_value:  Prof-school
+precision: 0.8984375
+recall: 0.8156028368794326
+fbeta: 0.8693997666040895
+
+categorical_feature_value:  5th-6th
+precision: 1.0
+recall: 0.25
+fbeta: 0.5033783783783784
+
+categorical_feature_value:  10th
+precision: 1.0
+recall: 0.11290322580645161
+fbeta: 0.27902621722846443
+
+categorical_feature_value:  1st-4th
+precision: 1.0
+recall: 0.16666666666666666
+fbeta: 0.37817258883248733
+
+categorical_feature_value:  Preschool
+precision: 1.0
+recall: 1.0
+fbeta: 1.0
+
+categorical_feature_value:  12th
+precision: 1.0
+recall: 0.24242424242424243
+fbeta: 0.4931733553992553
+
