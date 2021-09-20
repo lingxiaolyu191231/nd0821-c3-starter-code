@@ -6,7 +6,6 @@ This module is used to implement ML pipeline in FastAPI
 """
 import os
 import sys
-import git
 import subprocess
 import pandas as pd
 sys.path.insert(1, './starter/ml')
@@ -28,14 +27,10 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     else:
         os.system("rm -r .dvc .apt/usr/lib/dvc")
 
-def root(path = os.getcwd()):
-    git_repo = git.Repo(path, search_parent_directories=True)
-    git_root = git_repo.git.rev_parse("--show-toplevel")
-    print(git_root)
-    
-    return git_root
+def root():
+    return os.sep
 
-root = root(path = os.getcwd())
+root = root()
 
 class Input(BaseModel):
     age: int = Field(..., example=25)
