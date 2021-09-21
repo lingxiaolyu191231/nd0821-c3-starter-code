@@ -30,7 +30,7 @@ def test_get_prediont_one():
     "salary": "<=50K"
 }
 
-    r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
+    r = client.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
 
     assert r.status_code == 200
     assert r.json()['predict'] == 0
@@ -57,7 +57,7 @@ def test_get_prediont_two():
     "native-country": "United-States",
     "salary": "<=50K"
 }
-    r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
+    r = client.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
     assert r.status_code == 200
     assert r.json()['predict'] == 1
@@ -83,7 +83,7 @@ def test_miss_race_feature():
     "native-country": "United-States",
     "salary": ">50K"
 }
-    r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
+    r = client.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
     assert r.status_code != 200
 
@@ -106,7 +106,7 @@ def test_wrong_feature_type():
     "native-country": "United-States",
     "salary": "<=50K"
 }
-    r = requests.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
+    r = client.post("http://127.0.0.1:8000/prediction/", data=json.dumps(request_data))
     
     assert r.status_code != 200
     
