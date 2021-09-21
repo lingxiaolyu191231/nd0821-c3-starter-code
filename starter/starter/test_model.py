@@ -72,7 +72,7 @@ def test_train_model(alldata, root):
     if os.path.exists(os.path.join(root,"starter/model/gbclassifier_test.pkl")):
         filepath = os.path.join(root,"starter/model/gbclassifier_test.pkl")
     else:
-        filepath = "../model/gbclassifier_test.pkl"
+        filepath = "./gbclassifier_test.pkl"
         
     model = train_model(X_train, y_train, filepath=filepath)
     
