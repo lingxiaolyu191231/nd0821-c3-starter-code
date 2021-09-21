@@ -51,7 +51,7 @@ def test_data_shape(alldata):
     assert data.shape[0]>30000
     assert data.shape[1]==15
 
-def test_train_model(alldata):
+def test_train_model(alldata, root):
     """Test whether model is built and file exists"""
     data, model, encoder, lb = alldata
     
