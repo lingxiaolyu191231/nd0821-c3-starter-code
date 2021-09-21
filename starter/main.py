@@ -69,19 +69,19 @@ async def predict(input: Input):
     # Load gradiant boosting classifier
     print(os.getcwd())
     try:
-        load_gbc = pickle.load(open(os.path.join(root,"starter/model/gbclassifier.pkl"), "rb"))
+        load_gbc = pickle.load(open(os.path.join(root,"./starter/model/gbclassifier.pkl"), "rb"))
     except FileNotFoundError:
         load_gbc = pickle.load(open("./model/gbclassifier.pkl", "rb"))
 
     # load encoder
     try:
-        encoder = pickle.load(open(os.path.join(root,"starter/model/encoder.pkl"), "rb"))
+        encoder = pickle.load(open(os.path.join(root,"./starter/model/encoder.pkl"), "rb"))
     except FileNotFoundError:
         encoder = pickle.load(open("./model/encoder.pkl", "rb"))
 
     # load lb
     try:
-        lb = pickle.load(open(os.path.join(root,"starter/model/lb.pkl"), "rb"))
+        lb = pickle.load(open(os.path.join(root,"./starter/model/lb.pkl"), "rb"))
     except FileNotFoundError:
         lb = pickle.load(open("./model/lb.pkl", "rb"))
 
