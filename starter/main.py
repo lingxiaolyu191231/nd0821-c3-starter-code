@@ -16,7 +16,10 @@ import pandas as pd
 sys.path.insert(1, './starter/ml')
 sys.path.append('./starter/starter/ml')
 
-from data import process_data
+try:
+    from data import process_data
+except ImportError:
+    raise
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
