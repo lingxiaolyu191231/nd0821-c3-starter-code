@@ -1,12 +1,10 @@
 import pandas as pd
-from model import inference, train_model, compute_model_metrics
+from .ml.model import inference, train_model, compute_model_metrics
 from sklearn.model_selection import train_test_split
-from data import process_data
+from .ml.data import process_data
 import pytest
 import pickle
 import os
-import sys
-sys.path.insert(1, './ml')
 
 
 @pytest.fixture
