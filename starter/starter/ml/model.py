@@ -5,7 +5,7 @@ import pickle
 
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train, filepath = "../model/gbclassifier.pkl"):
+def train_model(X_train, y_train, filepath="../model/gbclassifier.pkl"):
     """
     Trains a machine learning model and returns it.
 
@@ -21,9 +21,9 @@ def train_model(X_train, y_train, filepath = "../model/gbclassifier.pkl"):
         Trained machine learning model.
     """
     gbc = GradientBoostingClassifier(random_state=42)
-    parameters = {"n_estimators":(5, 10), 
+    parameters = {"n_estimators": (5, 10),
                   "learning_rate": (0.1, 0.01, 0.001),
-                  "max_depth": [2,3,4],
+                  "max_depth": [2, 3, 4],
                   "max_features": ("auto", "log2")}
     clf = GridSearchCV(gbc, parameters)
     clf.fit(X_train, y_train)
@@ -33,10 +33,10 @@ def train_model(X_train, y_train, filepath = "../model/gbclassifier.pkl"):
     return clf.best_estimator_
 
 
-
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using
+    precision, recall, and F1.
 
     Inputs
     ------
@@ -54,7 +54,7 @@ def compute_model_metrics(y, preds):
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
     print(f"fbeta : {fbeta}\nprecision : {precision}\nrecall : {recall}")
-    
+
     return precision, recall, fbeta
 
 
@@ -63,7 +63,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : 
+    model :
         Trained gradient boosted classifier
     X : np.array
         Data used for prediction.
@@ -75,4 +75,3 @@ def inference(model, X):
     preds = model.predict(X)
 
     return preds
-    

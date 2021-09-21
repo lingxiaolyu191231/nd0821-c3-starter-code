@@ -1,4 +1,3 @@
-import os
 import requests
 import json
 
@@ -20,7 +19,9 @@ data = {
     "salary": ">50K"
 }
 
-response = requests.post("http://udacity-fastapi-project.herokuapp.com/prediction/", data=json.dumps(data))
+response = requests.post(
+    "http://udacity-fastapi-project.herokuapp.com/prediction/",
+    data=json.dumps(data))
 print(response)
 if response.status_code == 200:
     if response.json()['predict'] == 0:

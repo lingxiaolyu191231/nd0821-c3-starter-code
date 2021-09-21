@@ -19,7 +19,9 @@ request_data = {
     "salary": "<=50K"
 }
 
-r = requests.post("http://127.0.0.1:8000/prediction/", data = json.dumps(request_data))
+r = requests.post(
+    "http://127.0.0.1:8000/prediction/",
+    data=json.dumps(request_data))
 print(r)
 if r.json()['predict'] == 0:
     print('predicted salary: <=50K')
