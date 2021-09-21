@@ -9,11 +9,13 @@ from data import process_data
 from sklearn.model_selection import train_test_split
 from model import inference,train_model, compute_model_metrics
 
+@pytest.fixture
+def root():
+    return os.getcwd()
 
 @pytest.fixture
-def alldata():
+def alldata(root):
     """Load data"""
-    root = os.getcwd()
     try:
         data = pd.read_csv(os.path.join(root,'starter/data/clean_data.csv'))
     except FileNotFoundError:
