@@ -9,9 +9,9 @@ from data import process_data
 from sklearn.model_selection import train_test_split
 from model import inference,train_model, compute_model_metrics
 
-@pytest.fixture
 root = os.getcwd()
 
+@pytest.fixture
 def alldata(root):
     """Load data"""
     try:
