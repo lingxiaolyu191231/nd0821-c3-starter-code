@@ -8,14 +8,15 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from fastapi import FastAPI
 import pickle
-from starter.starter.ml.data import process_data
 import os
 import sys
 import subprocess
 import pandas as pd
 
-#sys.path.insert(1, './starter/ml')
-#sys.path.append('./starter/starter/ml')
+sys.path.insert(1, './starter/ml')
+sys.path.append('./starter/starter/ml')
+
+from data import process_data
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
