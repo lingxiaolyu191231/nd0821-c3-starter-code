@@ -69,14 +69,14 @@ def test_train_model(alldata):
     X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
-    try:
+    if os.path.exists(os.path.join(root,"starter/model/gbclassifier_test.pkl")):
         filepath = os.path.join(root,"starter/model/gbclassifier_test.pkl")
-    except:
+    else:
         filepath = "../model/gbclassifier_test.pkl"
         
     model = train_model(X_train, y_train, filepath=filepath)
-    assert os.path.exists(filepath)
     
+    assert os.path.exists(filepath)
     return X_train, y_train, model, encoder, lb
 
 @pytest.fixture
