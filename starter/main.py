@@ -8,7 +8,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from fastapi import FastAPI
 import pickle
-from .starter.ml.data import process_data
+from starter.starter.ml.data import process_data
 import os
 import sys
 import subprocess
