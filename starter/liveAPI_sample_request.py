@@ -22,9 +22,7 @@ data = {
 
 response = requests.post("http://udacity-fastapi-project.herokuapp.com/prediction/", data=json.dumps(data))
 print(response)
-print(os.getcwd())
 if response.status_code == 200:
-    print(response)
     if response.json()['predict'] == 0:
         print('predicted salary: <=50K')
     else:

@@ -1,6 +1,5 @@
 import os
 import sys
-import git
 import pickle
 from pathlib import Path
 sys.path.insert(1, './ml')
