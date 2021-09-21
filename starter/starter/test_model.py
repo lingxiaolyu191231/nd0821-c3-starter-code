@@ -10,14 +10,6 @@ from sklearn.model_selection import train_test_split
 from model import inference,train_model, compute_model_metrics
 
 @pytest.fixture
-def root(path = os.getcwd()):
-    git_repo = git.Repo(path, search_parent_directories=True)
-    git_root = git_repo.git.rev_parse("--show-toplevel")
-    print(git_root)
-    
-    return git_root
-        
-@pytest.fixture
 def alldata(root):
     """Load data"""
     try:
