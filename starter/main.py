@@ -28,9 +28,11 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
         os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 def root():
-    return os.sep
+    print(os.getcwd())
+    return os.getcwd()
 
 root = root()
+print(root)
 
 class Input(BaseModel):
     age: int = Field(..., example=25)
