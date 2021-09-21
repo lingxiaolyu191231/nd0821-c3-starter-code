@@ -21,23 +21,23 @@ def alldata(root):
     except FileNotFoundError:
         data = pd.read_csv('../data/clean_data.csv')
     
-    try:
+    if os.path.exists(os.path.join(root,"starter/model/gbclassifier.pkl")):
         model = os.path.join(root,"starter/model/gbclassifier.pkl")
-    except FileNotFoundError:
+    else:
         model = "../model/gbclassifier.pkl"
     with open(model, "rb") as f:
         model = pickle.load(f)
         
-    try:
+    if os.path.exists(os.path.join(root,"starter/model/encoder.pkl")):
         encoder = os.path.join(root,"starter/model/encoder.pkl")
-    except FileNotFoundError:
+    else:
         encoder = "../model/encoder.pkl"
     with open(encoder, "rb") as f:
         encoder = pickle.load(f)
         
-    try:
+    if os.path.exists(os.path.join(root, "starter/model/lb.pkl")):
         lb = os.path.join(root, "starter/model/lb.pkl")
-    except FileNotFoundError:
+    else:
         lb = "../model/lb.pkl"
     with open(lb, "rb") as f:
         lb = pickle.load(f)
